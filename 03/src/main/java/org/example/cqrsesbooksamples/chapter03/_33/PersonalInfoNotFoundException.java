@@ -1,0 +1,11 @@
+package org.example.cqrsesbooksamples.chapter03._33;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class PersonalInfoNotFoundException extends RuntimeException {
+    public PersonalInfoNotFoundException(String personalInfoId) {
+        super("Personal information not found: " + personalInfoId);
+    }
+}

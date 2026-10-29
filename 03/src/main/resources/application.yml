@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: chapter03
+  datasource:
+    active:
+      jdbc-url: jdbc:mysql://localhost:3306/axon_active
+      username: axonuser
+      password: axonpassword
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    archive:
+      jdbc-url: jdbc:mysql://localhost:3306/axon_archive
+      username: axonuser
+      password: axonpassword
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  sql:
+    init:
+      mode: always
+
+axon:
+  axonserver:
+    enabled: false
+  serializer:
+    events: jackson
+    messages: jackson
+  event-archiver:
+    cron: "0 0 1 * * ?"
+  tiered-storage:
+    archive-threshold: 30d  # 30日より古いイベントをアーカイブ
+    batch-size: 100  # 1回のトランザクションで処理するイベント数
+  eventstore:
+    jdbc:
+      event-table-name: domain_event_entry
+      snapshot-table-name: snapshot_event_entry
+
+logging:
+  level:
+    root: INFO
+    org.axonframework: INFO
+    org.example: DEBUG
